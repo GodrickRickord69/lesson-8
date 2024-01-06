@@ -110,6 +110,6 @@ def main(): # главная управляющая функция
                 print("Файл не создан. Создайте файл.")
                 continue
             copy(copied_file_name, file_name)
-            
+
 main()
 
