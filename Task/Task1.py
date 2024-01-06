@@ -24,6 +24,7 @@
 Сделать волидацию имени
 '''
 
+import csv
 from csv import DictReader, DictWriter
 from os.path import exists
 class LenNumberError: #будет позже изучаться, если тяжело можно неделать
@@ -74,24 +75,41 @@ def write_file(file_name): # функция записи файла
         f_writer.writeheader()
         f_writer.writerows(res)
 
-file_name = 'phone.csv'
+def copy(copied_file_name, target_file_name): #функция копирования
+    copied_file = read_file(copied_file_name)
+    item = int(input('Введите номер строки: '))
+    print(copied_file[item])
+    row = [copied_file[item]['имя'], copied_file[item]['фамилия'], copied_file[item]['телефон']]
+    with open(target_file_name, 'a+', encoding='utf-8', newline='') as target_file:
+        f_writer = csv.writer(target_file)
+        f_writer.writerow(row)
+
+file_name = "phone.csv"
 
 def main(): # главная управляющая функция 
     while True:
         command = input("Введите команду: ")
-        if command == 'q':
+        if command == 'q': # Команда завершения работы цикла
             break
-        elif command == 'w':
+        elif command == 'w': # Команда записи
             if not exists(file_name):
                 create_file(file_name)
             write_file(file_name)
-        elif command == 'r':
+        elif command == 'r': # Команда чтения
             if not exists(file_name):
                 print("Файл не создан. Создайте файл.")
                 continue
             print(*read_file(file_name))
-        elif command == 'c':
-            pass
-
+        elif command == 'c': # Команда копирования
+            if not exists(file_name):
+                print("Файл не создан. Создайте файл.")
+                continue
+            copied_file_name = input("Введите нименование копируемого файла: ")
+            #copied_file_name = "phone2.csv"
+            if not exists(copied_file_name):
+                print("Файл не создан. Создайте файл.")
+                continue
+            copy(copied_file_name, file_name)
+            
 main()
 
