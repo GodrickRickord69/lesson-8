@@ -30,7 +30,7 @@ class LenNumberError: #будет позже изучаться, если тяж
     def __init__(self, txt):
         self.txt = txt
 
-def get_info():
+def get_info(): # функция получения данных о юзере
     first_name = 'Ivan'
     last_name = 'Ivanov'
     is_valid_number = False
@@ -50,17 +50,17 @@ def get_info():
 
     return [first_name, last_name, phone_number]
 
-def create_file(file_name):
+def create_file(file_name): # функция создания файла
     with open(file_name, 'w', encoding='utf-8') as data:
         f_writer = DictWriter(data, fieldnames=['имя', 'фамилия', 'телефон'])
         f_writer.writeheader()
 
-def read_file(file_name):
+def read_file(file_name): # функция чтения файла
     with open(file_name, 'r', encoding='utf-8') as data:
         f_reader = DictReader(data)
         return list(f_reader)
     
-def write_file(file_name):
+def write_file(file_name): # функция записи файла
     res = read_file(file_name)
     user_data = get_info()
     for el in res:
@@ -76,7 +76,7 @@ def write_file(file_name):
 
 file_name = 'phone.csv'
 
-def main():
+def main(): # главная управляющая функция 
     while True:
         command = input("Введите команду: ")
         if command == 'q':
